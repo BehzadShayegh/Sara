@@ -1,3 +1,4 @@
 label,command
 google,chromium-browser
 update github,./LinuxCommand/Shells/updateGithub.sh
+music,vlc ~/Music/music/Bi\ kalam/Richard\ Clayderman/*
