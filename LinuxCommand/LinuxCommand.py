@@ -64,6 +64,7 @@ def linuxCommand() :
             # removeCommand()
             continue
         elif command in linuxCommands :
+            print(linuxCommands[command])
             os.system(linuxCommands[command])
             os.system("mpg123 ./BasicAnswers/JobDoneSir.mp3")
             continue
