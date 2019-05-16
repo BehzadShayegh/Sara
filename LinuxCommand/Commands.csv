@@ -1,0 +1,3 @@
+label,command
+google,chromium-browser
+update github,./LinuxCommand/Shell/updateGithub.sh
