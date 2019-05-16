@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/code,linux,python
-# Edit at https://www.gitignore.io/?templates=code,linux,python
+# Created by https://www.gitignore.io/api/git,code,venv,linux,python,virtualenv
+# Edit at https://www.gitignore.io/?templates=git,code,venv,linux,python,virtualenv
 
 ### Code ###
 .vscode/*
@@ -8,6 +8,21 @@
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+### Git ###
+# Created by git for backups. To disable backups in Git:
+# $ git config --global mergetool.keepBackup false
+*.orig
+
+# Created by git when using merge tools for conflicts
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
+*.REMOTE.*
+*_BACKUP_*.txt
+*_BASE_*.txt
+*_LOCAL_*.txt
+*_REMOTE_*.txt
 
 ### Linux ###
 *~
@@ -149,4 +164,20 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# End of https://www.gitignore.io/api/code,linux,python
+### venv ###
+# Virtualenv
+# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+pyvenv.cfg
+pip-selfcheck.json
+
+### VirtualEnv ###
+# Virtualenv
+# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
+
+# End of https://www.gitignore.io/api/git,code,venv,linux,python,virtualenv
