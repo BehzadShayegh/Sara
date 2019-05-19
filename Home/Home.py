@@ -2,6 +2,7 @@ import os
 from Home.Listener import Listener
 from Translate.Translate import translateToEn
 from LinuxCommand.LinuxCommand import linuxCommand
+import pyjokes
 
 ear = Listener()
 possibleCommands = [\
@@ -14,6 +15,8 @@ possibleCommands = [\
     ['translate', 'ترجمه', 'جمه'],\
     ['shutdown', 'لپتاپ', 'تاپ'],\
     ['shutdown', 'خاموش', 'موش'],\
+    ['joke', 'جوک', 'جوک'],\
+    ['joke', 'لطیفه', 'تیف'],\
     ]
 
 from gtts import gTTS
@@ -43,5 +46,13 @@ def listenToCommand() :
                 os.system("shutdown now")
             else :
                 os.system("mpg123 ./BasicAnswers/OkaySir.mp3")
+        elif command == 'joke' :
+            text = pyjokes.get_joke()
+            tts = gTTS(text=text, lang='en-US')
+            tts.save("last_word.mp3")
+            os.system("mpg123 last_word.mp3")
+            print("\n\n\n:DD :DD :DD :DD :DD :DD :DD :DD :DD")
+            print(text)
+            print(":DD :DD :DD :DD :DD :DD :DD :DD :DD\n\n\n")
         else :
             os.system("mpg123 ./BasicAnswers/ICanNotUnderstandSir.mp3")
