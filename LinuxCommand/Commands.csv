@@ -4,3 +4,5 @@ update github,./LinuxCommand/Shells/updateGithub.sh
 music,vlc ~/Music/music/Bi\ kalam/Richard\ Clayderman/*
 change environment,./LinuxCommand/Shells/changeEnv.sh
 VS Code,code ~/Desktop/GitHub/
+internet,chromium-browser
+25 band music,vlc Music/music/25\ Band/
