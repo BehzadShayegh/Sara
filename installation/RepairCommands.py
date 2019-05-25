@@ -1,6 +1,7 @@
 import csv
 
 possibleCommands = [\
+    ['sara', 'سارا', 'ارا'],\
     ['label', 'command', 'lastPart'],\
     ['finish', 'پایان', 'یان'],\
     ['finish', 'هیچی', 'چی'],\

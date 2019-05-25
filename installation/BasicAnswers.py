@@ -38,6 +38,9 @@ tts = gTTS(text='write your persian key word \
     and last part of that in new line after that', lang='en')
 tts.save("./Voices/WritePersianKeyWord.mp3")
 
+tts = gTTS(text='I am listening sir.', lang='en')
+tts.save("./Voices/ImListeningSir.mp3")
+
 os.system("cp ./installation/Ready ./Voices/Ready.mp3")
 os.system("cp ./installation/Capture ./Voices/Capture.mp3")
 

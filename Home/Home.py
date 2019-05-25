@@ -25,6 +25,10 @@ def listenToCommand() :
             os.system("mpg123 ./Voices/ICanNotUnderstandSir.mp3")
             continue
 
+        elif command == 'sara' :
+            os.system("mpg123 ./Voices/ImListeningSir.mp3")
+            continue
+
         elif command == 'finish' :
             os.system("mpg123 ./Voices/OkaySir.mp3")
             break
