@@ -14,14 +14,15 @@ class Listener :
         r = sr.Recognizer()
         with sr.Microphone() as source:
             try :
-                if readyFlag : os.system("mpg123 ./BasicAnswers/ReadyToListen.mp3")
+                if readyFlag : os.system("mpg123 ./Voices/Ready.mp3")
                 audio = r.listen(source, timeout=timeout, phrase_time_limit=phrase_time_limit)
+                if readyFlag : os.system("mpg123 ./Voices/Capture.mp3")
                 text = r.recognize_google(audio, language= language)
                 if text :
                     print(text)
                     return text
                 else :
-                    os.system("mpg123 ./BasicAnswers/IDidntHearAnyThingSir.mp3")
+                    os.system("mpg123 ./Voices/IDidntHearAnyThingSir.mp3")
                     return None
             except :
                 print('.')
@@ -40,14 +41,14 @@ class Listener :
                         points[index] += searchSize
         command = commandsList[points.index(max(points))][0]
         tts = gTTS(text="Do you mean "+command+"?", lang='en')
-        tts.save("last_word.mp3")
-        os.system("mpg123 last_word.mp3")
-        answer = self.getWord('fa-IR')
-        answer = self.commandReader(truefalseAnswers, answer, nearest=False)
+        tts.save("./Voices/last_word.mp3")
+        os.system("mpg123 ./Voices/last_word.mp3")
+        os.system("rm ./Voices/last_word")
+        answer = self.commandListener(truefalseAnswers, 'fa-IR', nearest=False)
         if answer == 'yes' :
             return command
         else :
-            os.system("mpg123 ./BasicAnswers/OkaySir.mp3")
+            os.system("mpg123 ./Voices/OkaySir.mp3")
             return None
 
     def commandListener(self, commandsList, language, nearest=True, readyFlag=True) :
@@ -58,15 +59,8 @@ class Listener :
                 return commandFlag
         return self.nearest(commandsList, text) if nearest else None
 
-    def commandReader(self, commandsList, text, nearest=True) :
-        if not text : return None
-        for commandFlag, command, commandLastPart in commandsList :
-            if self.find(command, commandLastPart, text) :
-                return commandFlag
-        return self.nearest(commandsList, text) if nearest else None
-
     def checkPassword(self) :
-        os.system("mpg123 ./BasicAnswers/GetPassword.mp3")
+        os.system("mpg123 ./Voices/GetPassword.mp3")
         text = self.getWord('fa-IR', readyFlag=True)
         if not text : return False
         for char in password :

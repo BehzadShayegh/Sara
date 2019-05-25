@@ -1,53 +1,55 @@
 import os
+import csv
 from Home.Listener import Listener
-from LinuxCommand.LinuxCommand import linuxCommand
-import pyjokes
+from Home.PersonalCommand import personalCommand, addCommand
+from Home.Joker import tellJoke
 
 ear = Listener()
-possibleCommands = [\
-    ['linuxCommand', 'دستور', 'تور'],\
-    ['finish', 'پایان', 'یان'],\
-    ['finish', 'هیچی', 'چی'],\
-    ['finish', 'کافی', 'فیه'],\
-    ['finish', 'بس است', 'بسه'],\
-    ['finish', 'بی خیال', 'خیال'],\
-    ['shutdown', 'لپتاپ', 'تاپ'],\
-    ['shutdown', 'خاموش', 'موش'],\
-    ['joke', 'جوک', 'جوک'],\
-    ['joke', 'لطیفه', 'تیف'],\
-    ]
 
-from gtts import gTTS
-def learnNewCommand() :
-    try :
-        tts = gTTS(text='I can not learn any thing to day. sorry sir!', lang='en-US')
-        tts.save("last_word.mp3")
-        os.system("mpg123 last_word.mp3")
-    except :
-        os.system("mpg123 ./BasicAnswers/ICanNotUnderstandSir.mp3")
+CommandLabels = './Memorry/CommandLabels.csv'
+possibleCommands = []
+with open(CommandLabels, 'r') as CommandLabelsCsv:
+    readedFile = csv.reader(CommandLabelsCsv, delimiter=',')
+    firstRow = True
+    for row in readedFile :
+        if firstRow :
+            firstRow = False
+            continue
+        possibleCommands.append(row)
 
 def listenToCommand() :
     while True :
         command = ear.commandListener(possibleCommands, 'fa-IR')
-        if command == 'finish' :
-            os.system("mpg123 ./BasicAnswers/OkaySir.mp3")
+
+        if not command :
+            os.system("mpg123 ./Voices/ICanNotUnderstandSir.mp3")
+            continue
+
+        elif command == 'finish' :
+            os.system("mpg123 ./Voices/OkaySir.mp3")
             break
-        elif command == 'linuxCommand' :
-            linuxCommand()
-            break
+
         elif command == 'shutdown' :
             if ear.checkPassword() :
-                os.system("mpg123 ./BasicAnswers/ShutDown.mp3")
+                os.system("mpg123 ./Voices/ShutDown.mp3")
                 os.system("shutdown now")
             else :
-                os.system("mpg123 ./BasicAnswers/OkaySir.mp3")
+                os.system("mpg123 ./Voices/OkaySir.mp3")
+
         elif command == 'joke' :
-            text = pyjokes.get_joke()
-            tts = gTTS(text=text, lang='en-US')
-            tts.save("last_word.mp3")
-            os.system("mpg123 last_word.mp3")
-            print("\n\n\n:DD :DD :DD :DD :DD :DD :DD :DD :DD")
-            print(text)
-            print(":DD :DD :DD :DD :DD :DD :DD :DD :DD\n\n\n")
+            tellJoke()
+            continue
+
+        elif command == 'add command' :
+            addCommand(possibleCommands)
+            os.system("mpg123 ./Voices/JobDoneSir.mp3")
+            continue
+
+        elif command == 'remove command' :
+            # removeCommand()
+            continue
+
         else :
-            os.system("mpg123 ./BasicAnswers/ICanNotUnderstandSir.mp3")
+            personalCommand(command)
+            os.system("mpg123 ./Voices/JobDoneSir.mp3")
+            continue
