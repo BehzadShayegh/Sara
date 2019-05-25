@@ -1,5 +1,6 @@
 #!/bin/bash
 # make venv
+apt-get install python3-venv
 python3 -m venv --without-pip .env
 . .env/bin/activate
 curl https://bootstrap.pypa.io/get-pip.py | python3
