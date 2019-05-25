@@ -1,6 +1,5 @@
 import os
 from Home.Listener import Listener
-from Translate.Translate import translateToEn
 from LinuxCommand.LinuxCommand import linuxCommand
 import pyjokes
 
@@ -12,7 +11,6 @@ possibleCommands = [\
     ['finish', 'کافی', 'فیه'],\
     ['finish', 'بس است', 'بسه'],\
     ['finish', 'بی خیال', 'خیال'],\
-    ['translate', 'ترجمه', 'جمه'],\
     ['shutdown', 'لپتاپ', 'تاپ'],\
     ['shutdown', 'خاموش', 'موش'],\
     ['joke', 'جوک', 'جوک'],\
@@ -33,9 +31,6 @@ def listenToCommand() :
         command = ear.commandListener(possibleCommands, 'fa-IR')
         if command == 'finish' :
             os.system("mpg123 ./BasicAnswers/OkaySir.mp3")
-            break
-        elif command == 'translate' :
-            translateToEn()
             break
         elif command == 'linuxCommand' :
             linuxCommand()
