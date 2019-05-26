@@ -1,3 +1,0 @@
-label,command
-update github,./Memorry/Shells/updateGithub.sh
-Backup,cp -rf ./Memorry ./Backup
