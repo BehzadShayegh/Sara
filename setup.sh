@@ -23,10 +23,15 @@ echo Enter the path where Sara exists \(whrite folder name without \'\/\'\) .
 read newPATH
 sed "s,{__PATH__},${newPATH},g" ./installation/Sara.sh > ~/Sara.sh
 chmod +x ~/Sara.sh
+cp ./installation/.sara_at_begin.sh ~/
+chmod +x ~/.sara_at_begin.sh
 # recovery voices
 python3 $newPATH/installation/BasicAnswers.py
 python3 $newPATH/installation/RepairCommands.py
 # welcome
 mpg123 $newPATH/Voices/introduction.mp3
 rm $newPATH/Voices/introduction.mp3
+# massage
+echo If you want sara to run automaticly when you start using ubuntu, run ~/.sara_at_begin ib your .bashrc script.
+# first run
 ~/Sara.sh

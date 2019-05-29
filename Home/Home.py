@@ -1,52 +1,50 @@
 import os
-import csv
-from Home.Listener import Listener
+from pandas import DataFrame, read_csv
+import pandas as pd
+import pyjokes
+from Home.Listener import Ear
+from Home.Announcer import Lips
+from Home.Writer import HandWriting
 from Home.PersonalCommand import personalCommand, addCommand
-from Home.Joker import tellJoke
 
-ear = Listener()
+ear = Ear()
+lips = Lips()
+handwriting = HandWriting()
 
-CommandLabels = './Memorry/CommandLabels.csv'
-possibleCommands = []
-with open(CommandLabels, 'r') as CommandLabelsCsv:
-    readedFile = csv.reader(CommandLabelsCsv, delimiter=',')
-    firstRow = True
-    for row in readedFile :
-        if firstRow :
-            firstRow = False
-            continue
-        possibleCommands.append(row)
+CommandLabelsCsv = './Memorry/CommandLabels.csv'
+possibleCommands = pd.read_csv(CommandLabelsCsv).values.tolist()
 
 def listenToCommand() :
     while True :
         command = ear.commandListener(possibleCommands, 'fa-IR')
+        handwriting.specialLog(command)
 
         if not command :
-            os.system("mpg123 ./Voices/ICanNotUnderstandSir.mp3")
+            lips.notUnderStand_()
             continue
 
         elif command == 'sara' :
-            os.system("mpg123 ./Voices/ImListeningSir.mp3")
+            lips.say(lips.listenning)
             continue
 
         elif command == 'finish' :
-            os.system("mpg123 ./Voices/OkaySir.mp3")
+            lips.ok_()
             break
 
         elif command == 'shutdown' :
             if ear.checkPassword() :
-                os.system("mpg123 ./Voices/ShutDown.mp3")
+                lips.say(lips.shutdown)
                 os.system("shutdown now")
             else :
-                os.system("mpg123 ./Voices/OkaySir.mp3")
+                lips.ok_()
 
         elif command == 'joke' :
-            tellJoke()
+            lips.say(pyjokes.get_joke())
             continue
 
         elif command == 'add command' :
             addCommand(possibleCommands)
-            os.system("mpg123 ./Voices/JobDoneSir.mp3")
+            lips.jobDone_()
             continue
 
         elif command == 'remove command' :
@@ -55,5 +53,5 @@ def listenToCommand() :
 
         else :
             personalCommand(command)
-            os.system("mpg123 ./Voices/JobDoneSir.mp3")
+            lips.jobDone_()
             continue

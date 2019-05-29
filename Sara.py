@@ -1,19 +1,21 @@
 import os
-from Home.Listener import Listener
+from Home.Listener import Ear
 from Home.Home import listenToCommand
+from Home.Announcer import Lips
 
-ear = Listener()
+ear = Ear()
+lips = Lips()
 possibleCommands = [\
     ['sara', 'سارا', 'ارا'],\
     ['off', 'خاموش', 'موش'],\
     ]
 
-os.system("mpg123 ./Voices/WelcomeYourHighness.mp3")
+lips.say(lips.welcome)
 while True :
     command = ear.commandListener(possibleCommands, 'fa-IR', nearest=False, readyFlag=False)
     if command == 'off' :
-        os.system("mpg123 ./Voices/GoodByeMr.mp3")
+        lips.goodbye_()
         break
     elif command == 'sara' :
-        os.system("mpg123 ./Voices/YesSir.mp3")
+        lips.yes_()
         listenToCommand()

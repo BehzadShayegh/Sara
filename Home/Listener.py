@@ -1,12 +1,15 @@
 import speech_recognition as sr
-from gtts import gTTS
-import os
 import re
+from Home.Writer import HandWriting
+from Home.Announcer import Lips
 
 truefalseAnswers = [['yes','آره','ره'], ['yes','بله','له'], ['no','نه','ن'], ['no','خیر','یر']]
 password = ['۰', '۵'] # Sara's bithday is 2019/05/15, so password is ۰ and ۵ in one statement
 
-class Listener :
+handwriting = HandWriting()
+lips = Lips()
+
+class Ear :
     def __init__(self) :
         pass
 
@@ -14,18 +17,18 @@ class Listener :
         r = sr.Recognizer()
         with sr.Microphone() as source:
             try :
-                if readyFlag : os.system("mpg123 ./Voices/Ready.mp3")
+                if readyFlag : lips.ready_()
                 audio = r.listen(source, timeout=timeout, phrase_time_limit=phrase_time_limit)
-                if readyFlag : os.system("mpg123 ./Voices/Capture.mp3")
+                if readyFlag : lips.capture_()
                 text = r.recognize_google(audio, language= language)
                 if text :
-                    print(text)
+                    handwriting.clientSaid(text)
                     return text
                 else :
-                    os.system("mpg123 ./Voices/IDidntHearAnyThingSir.mp3")
+                    lips.say(lips.didntHear)
                     return None
             except :
-                print('.')
+                handwriting.wating()
 
     def find(self, word, lastPart, text) :
         return len(re.findall('[-\w.]?\\'+lastPart, text) + re.findall('[-\w.]?\\'+word+'?[-\w.]', text)) != 0
@@ -40,15 +43,12 @@ class Listener :
                     if text[start : start+searchSize] in commandsList[index][1] :
                         points[index] += searchSize
         command = commandsList[points.index(max(points))][0]
-        tts = gTTS(text="Do you mean "+command+"?", lang='en')
-        tts.save("./Voices/last_word.mp3")
-        os.system("mpg123 ./Voices/last_word.mp3")
-        os.system("rm ./Voices/last_word")
+        lips.say("Do you mean "+command+"?")
         answer = self.commandListener(truefalseAnswers, 'fa-IR', nearest=False)
         if answer == 'yes' :
             return command
         else :
-            os.system("mpg123 ./Voices/OkaySir.mp3")
+            lips.ok_()
             return None
 
     def commandListener(self, commandsList, language, nearest=True, readyFlag=True) :
@@ -60,7 +60,7 @@ class Listener :
         return self.nearest(commandsList, text) if nearest else None
 
     def checkPassword(self) :
-        os.system("mpg123 ./Voices/GetPassword.mp3")
+        lips.say(lips.getPass)
         text = self.getWord('fa-IR', readyFlag=True)
         if not text : return False
         for char in password :

@@ -1,8 +1,12 @@
 import os
 import csv
-from Home.Listener import Listener
+from Home.Listener import Ear
+from Home.Writer import HandWriting
+from Home.Announcer import Lips
 
-ear = Listener()
+ear = Ear()
+handwriting = HandWriting()
+lips = Lips()
 
 CommandLabelsPath = './Memorry/CommandLabels.csv'
 PersonalCommandsPath = './Memorry/PersonalCommands.csv'
@@ -12,11 +16,11 @@ with open(PersonalCommandsPath, mode='r') as CommandsCsv:
     Commands = {rows[0]:rows[1] for rows in reader}
 
 def addCommand(possibleCommands) :
-    os.system("mpg123 ./Voices/WriteLinuxBashCommand.mp3")
+    lips.say(lips.writeLinuxCom)
     bashCommand = input()
-    os.system("mpg123 ./Voices/WriteEnglishLabel.mp3")
+    lips.say(lips.writeEnLabel)
     label = input()
-    os.system("mpg123 ./Voices/WritePersianKeyWord.mp3")
+    lips.say(lips.writePesianKey)
     key = input()
     lastPart = input()
 
@@ -30,5 +34,4 @@ def addCommand(possibleCommands) :
     
 
 def personalCommand(command) :
-    print(Commands[command])
     os.system(Commands[command])
