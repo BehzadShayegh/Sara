@@ -5,4 +5,3 @@ then
     ~/Sara.sh
     Sara=1
 fi
-

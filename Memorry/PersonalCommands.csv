@@ -1,6 +1,0 @@
-label,command
-update github,./Memorry/Shells/updateGithub.sh
-Backup,cp -rf ./Memorry ./.Backup
-VS code,code ~/Desktop/GitHub/
-Browser,chromium-browser
-play tekno,vlc ~/Music/music/Ba\ kalam/Kharejy/Tekno/

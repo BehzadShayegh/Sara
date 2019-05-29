@@ -181,3 +181,9 @@ pip-selfcheck.json
 
 # Backup
 .Backup
+
+# shells
+*_personal.sh
+
+# CSVs
+*.csv
