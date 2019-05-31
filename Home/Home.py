@@ -17,7 +17,7 @@ possibleCommands = pd.read_csv(CommandLabelsCsv).values.tolist()
 def listenToCommand() :
     while True :
         command = ear.commandListener(possibleCommands, 'fa-IR')
-        handwriting.specialLog(command)
+        if command : handwriting.specialLog(command)
 
         if not command :
             lips.notUnderStand_()
