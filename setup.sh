@@ -19,7 +19,7 @@ sudo apt-get update
 pip3 install pyaudio
 pip3 install -r ./installation/Requirements.txt
 # make shortcut
-echo Enter the path where Sara exists \(whrite folder name without \'\/\'\) .
+echo Enter the path where Sara exists \(Enter folder name without \'\/\'\) .
 read newPATH
 sed "s,{__PATH__},${newPATH},g" ./installation/Sara.sh > ~/Sara.sh
 chmod +x ~/Sara.sh
